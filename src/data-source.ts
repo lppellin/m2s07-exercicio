@@ -10,7 +10,7 @@ export const AppDataSource = new DataSource({
     database: "m2s07-trello",
     synchronize: true,
     logging: false,
-    entities: ["/src/entity/*.ts"],
+    entities: ["src/entity/*.ts"],
     migrations: ["src/migration/*.ts"],
     subscribers: [],
 })
