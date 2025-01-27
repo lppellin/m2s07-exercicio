@@ -5,7 +5,9 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   Unique,
+  OneToMany,
 } from "typeorm";
+import { Medicamento } from "./Medicamento";
 
 @Unique(["email"])
 @Entity()
@@ -27,4 +29,7 @@ export class User {
 
   @UpdateDateColumn({ type: "timestamp" })
   updated_at: Date;
+
+  @OneToMany(() => Medicamento, (medicamento) => medicamento.user)
+  medicamentos: Medicamento[];
 }

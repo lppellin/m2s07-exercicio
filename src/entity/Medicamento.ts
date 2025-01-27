@@ -3,7 +3,7 @@ import {
   CreateDateColumn,
   Entity,
   JoinColumn,
-  OneToOne,
+  ManyToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from "typeorm";
@@ -23,11 +23,11 @@ export class Medicamento {
   @Column({ type: "int", nullable: false })
   quantidade: number;
 
-  @Column()
+  @Column({ type: "int", nullable: false })
   userId: number;
 
-  @OneToOne(() => User)
-  @JoinColumn()
+  @ManyToOne(() => User, (user) => user.medicamentos)
+  @JoinColumn({ name: "userId" })
   user: User;
 
   @CreateDateColumn({ type: "timestamp" })
