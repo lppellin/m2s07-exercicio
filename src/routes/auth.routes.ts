@@ -2,6 +2,7 @@ import { Request, Response, Router } from "express";
 import { AppDataSource } from "../data-source";
 import { User } from "../entity/User";
 import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 import authToken from "../middlewares/auth";
 
 const authRouter = Router();
@@ -28,7 +29,12 @@ authRouter.post("/", authToken, async (req: Request, res: Response) => {
     const isPasswordValid = await bcrypt.compare(senha, user.senha);
 
     if (isPasswordValid) {
-      res.status(200).json({ userId: user.id });
+      const token = jwt.sign(
+        { userId: user.id },
+        process.env.JWT_SECRET as string,
+        { expiresIn: "1h" }
+      );
+      res.status(200).json({ token });
       return;
     }
   } catch (error) {
