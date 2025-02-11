@@ -1,5 +1,6 @@
 import { Router } from "express";
 import RBACController from "../controllers/RBACController";
+import authorizeRole from "../middlewares/authorizeRole";
 
 const rbacRouter = Router();
 
