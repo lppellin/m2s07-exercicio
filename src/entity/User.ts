@@ -6,8 +6,11 @@ import {
   UpdateDateColumn,
   Unique,
   OneToMany,
+  ManyToMany,
+  JoinTable,
 } from "typeorm";
 import { Medicamento } from "./Medicamento";
+import { Role } from "./Role";
 
 @Unique(["email"])
 @Entity()
@@ -18,7 +21,7 @@ export class User {
   @Column({ type: "varchar", length: 255 })
   nome: string;
 
-  @Column({ type: "varchar", length: 255 })
+  @Column({ type: "varchar", length: 255, unique: true })
   email: string;
 
   @Column({ type: "varchar", length: 255 })
@@ -32,4 +35,8 @@ export class User {
 
   @OneToMany(() => Medicamento, (medicamento) => medicamento.user)
   medicamentos: Medicamento[];
+
+  @ManyToMany(() => Role, (role) => role.users)
+  @JoinTable({ name: "user_role" })
+  roles: Role[];
 }
