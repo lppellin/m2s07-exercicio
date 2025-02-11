@@ -4,7 +4,7 @@ import { Permission } from "../entity/Permission";
 import { Role } from "../entity/Role";
 import { User } from "../entity/User";
 
-export class RBACController {
+class RBACController {
   private userRepository = AppDataSource.getRepository(User);
   private roleRepository = AppDataSource.getRepository(Role);
   private permissionRepository = AppDataSource.getRepository(Permission);
@@ -161,3 +161,5 @@ export class RBACController {
   }
 
 }
+
+export default new RBACController();
